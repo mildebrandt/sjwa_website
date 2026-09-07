@@ -1,0 +1,375 @@
+/* ==========================================================================
+   1. General Reset & Base Styles
+   ========================================================================== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+    background-color: #f9f9f9;
+    color: #333;
+    line-height: 1.5;
+    font-size: 14px;
+}
+
+/* ==========================================================================
+   Header Banner & Floating Navigation
+   ========================================================================== */
+.site-header {
+    position: relative;
+    width: 100%;
+}
+
+/* 20% Viewport Height Banner Image Setup */
+.header-banner-wrapper {
+    width: 100%;
+    height: 40vh;
+    overflow: hidden;
+    position: relative;
+    background-color: #000000;
+}
+
+.header-banner-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Prevents distorting or stretching the image */
+    display: block;
+    filter: brightness(60%);
+    transition: filter 0.3s ease;
+}
+
+/* ==========================================================================
+   Banner Text Overlay Styling
+   ========================================================================== */
+.banner-text-overlay {
+    position: absolute;
+    top: 55%; /* Centers slightly below dead-center to avoid the fixed top menu */
+    left: 50%;
+    transform: translate(-50%, -50%); /* Shifts container back to center completely */
+    text-align: center;
+    width: 90%; /* Keeps text from touching edges on small mobile layouts */
+    max-width: 800px;
+    z-index: 5;
+    color: #ffffff; /* Crisp white text overlays */
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5); /* Shadow ensures readability over complex images */
+}
+
+/* Banner Title Style */
+.banner-text-overlay .banner-title {
+    font-size: 3.2rem;
+    font-weight: 300;
+    letter-spacing: 1px;
+    margin-bottom: 8px;
+    color: #ffffff !important; /* Forces title to stay white over dark banner background */
+}
+
+/* Banner Subtitle Style */
+.banner-text-overlay .banner-subtitle {
+    font-size: 1.25rem;
+    font-weight: 300;
+    opacity: 0.85;
+    margin-bottom: 0; /* Prevents global paragraph margin from shifting position */
+}
+
+/* Smartphone adjust for banner typography */
+@media (max-width: 768px) {
+    .banner-text-overlay .banner-title {
+        font-size: 2rem; /* Downscales smoothly on mobile phone viewports */
+        font-weight: 300;
+    }
+    .banner-text-overlay .banner-subtitle {
+        font-size: 1rem;
+    }
+}
+
+/* Navigation Menu (Overlayed at the top initially, then stays fixed) */
+.navigation-menu {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background-color: rgba(0, 0, 0, 0); /* Dark translucent overlay background */
+    /* backdrop-filter: blur(5px);  Frosted glass accent over the banner image */
+    z-index: 1000;
+    /* This ensures it sticks to the top of the screen once the banner scrolls past */
+    transition: background-color 0.5s ease, box-shadow 0.5s ease;
+}
+
+/* Nav Container Constraints */
+.nav-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 15px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: padding 0.5s ease;
+}
+
+.nav-brand-text {
+    color: #ffffff;
+    font-weight: 700;
+    font-size: 1.05rem;
+}
+
+/* Menu Navigation Links Setup */
+.nav-links {
+    display: flex;
+    list-style: none;
+    gap: 10px;
+}
+
+.navigation-menu a {
+    text-decoration: none;
+    color: #ffffff; /* White links for maximum contrast over overlay */
+    font-weight: 600;
+    font-size: 0.85rem;
+    padding: 6px 10px;
+    border-radius: 4px;
+    transition: all 0.3s ease;
+    white-space: nowrap;
+}
+
+.navigation-menu a:hover, 
+.navigation-menu a.active {
+    color: #ffffff;
+    background-color: rgba(255, 255, 255, 0.25);
+}
+
+/* Class applied dynamically when page scrolls down */
+.navigation-menu.scrolled {
+    background-color: rgba(0, 0, 0, 0.95);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+}
+
+.navigation-menu.scrolled .nav-container {
+    padding: 12px 20px; /* Gently slims the menu bar height as it fades to black */
+}
+
+/* ==========================================================================
+   3. Sticky Header Shrink Modifiers (Triggered via JS)
+   ========================================================================== */
+.site-header.scrolled {
+    background-color: rgba(255, 255, 255, 0.95); /* Slight transparency on scroll */
+    backdrop-filter: blur(10px); /* Modern frosted-glass effect */
+    box-shadow: 0 4px 20px rgba(0,0,0,0.08); /* Distinct shadow when floating */
+}
+
+.site-header.scrolled .header-container {
+    padding: 10px 20px; /* Compresses vertical spacing by half */
+}
+
+.site-header.scrolled .header-logo {
+    height: 38px; /* Scales down the logo elegantly */
+}
+
+/* ==========================================================================
+   4. Mobile Hamburger Button (Hidden on Desktop)
+   ========================================================================== */
+.menu-toggle {
+    display: none;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 30px;
+    height: 21px;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    z-index: 1001;
+}
+
+.menu-toggle .bar {
+    height: 3px;
+    width: 100%;
+    background-color: #333;
+    border-radius: 10px;
+    transition: all 0.3s ease;
+}
+
+/* ==========================================================================
+   5. Main Content Area Configuration
+   ========================================================================== */
+.content-area {
+    max-width: 600px;
+    margin: 40px auto;
+    padding: 0 20px;
+    min-height: 60vh; /* Pushes footer down on short pages */
+}
+
+/* Content Paragraph Spacing */
+.content-area p {
+    margin-bottom: 1.5rem; /* Creates a clean, uniform blank space below every paragraph */
+}
+
+/* Removes the extra space from the absolute last paragraph to keep the layout tidy */
+.content-area p:last-child {
+    margin-bottom: 0;
+}
+
+/* ==========================================================================
+   Headings Fine-Tuning
+   ========================================================================== */
+.content-area h1, 
+.content-area h2, 
+.content-area h3 {
+    color: #1a1a1a;
+    font-weight: 700;
+    margin-bottom: 1rem; /* Space between the heading and the paragraph below it */
+    line-height: 1.3;
+}
+
+/* Reduced headliner size */
+.content-area h1 {
+    font-size: 1.4rem; /* Clean, compact main title size */
+}
+
+/* Reduced sub-section headings */
+.content-area h2 {
+    font-size: 1.25rem;
+    margin-top: 1.3rem; /* Breathing room above a new section title */
+}
+
+/* Reduced small subsection titles */
+.content-area h3 {
+    font-size: 1.1rem;
+    margin-top: 1rem;
+}
+
+
+/* ==========================================================================
+   6. Global Footer Architecture
+   ========================================================================== */
+.site-footer {
+    text-align: center;
+    padding: 30px 20px;
+    background-color: #1a1a1a;
+    color: #aeaeae;
+    margin-top: 60px;
+    font-size: 0.9rem;
+    border-top: 1px solid #2a2a2a;
+}
+
+.footer-container {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+/* ==========================================================================
+   Dynamic Desktop Overflow Dropdown Layout
+   ========================================================================== */
+.more-menu-item {
+    position: relative;
+    display: none; /* Kept hidden unless script identifies a screen squeeze */
+}
+
+/* Submenu block that drops down from the "More" link */
+.dropdown-submenu {
+    position: absolute;
+    top: 100%;
+    right: 0;
+    background-color: #1a1a1a;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+    list-style: none;
+    display: none; /* Hidden until hover */
+    flex-direction: column;
+    min-width: 160px;
+    border-radius: 4px;
+    padding: 8px 0;
+    margin-top: 5px;
+}
+
+.dropdown-submenu li {
+    width: 100%;
+}
+
+.dropdown-submenu a {
+    display: block;
+    padding: 10px 20px !important;
+    color: #ffffff !important;
+    font-size: 0.95rem;
+    text-align: left;
+    background-color: transparent !important;
+    border-radius: 0;
+}
+
+.dropdown-submenu a:hover {
+    background-color: #007bff !important; /* Blue background on hover inside dropdown */
+}
+
+/* Show the dropdown list smoothly when user hovers over the More item */
+.more-menu-item:hover .dropdown-submenu {
+    display: flex;
+}
+
+/* ==========================================================================
+   7. Mobile Media Queries (Smartphones & Tablets)
+   ========================================================================== */
+@media (max-width: 768px) {
+    /* Ensure the main bar stays visible at the top */
+    .navigation-menu {
+        background-color: rgba(0, 0, 0, 0.85) !important; /* Dark background on mobile for contrast */
+    }
+
+    .nav-container {
+        padding: 15px 20px;
+    }
+
+    .menu-toggle {
+        display: flex; /* Shows hamburger icon on mobile */
+    }
+
+    /* Target the link container with slide transitions */
+    .nav-links {
+        display: flex; /* Keep flex active so layout properties work */
+        position: fixed;
+        top: 60px; /* Sits directly below the navigation bar */
+        left: 0;
+        width: 100%;
+        background-color: #1a1a1a;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+        flex-direction: column; /* Stacks links vertically */
+        gap: 0;
+
+        /* --- Smooth Slide-Down Setup --- */
+        max-height: 0; /* Shrunk completely by default */
+        opacity: 0; /* Hidden from view */
+        overflow: hidden; /* Prevents text from sticking out while closed */
+        pointer-events: none; /* Disables clicking links when closed */
+        transition: max-height 0.4s ease-in-out, opacity 0.3s ease-in-out;
+    }
+
+    /* Shows the links drop-down gracefully when the 'active' class is triggered */
+    .nav-links.active {
+        max-height: 600px; /* Large enough estimation to safely hold all your menu links */
+        opacity: 1; /* Fully visible */
+        pointer-events: auto; /* Allows links to be clickable again */
+        padding: 15px 0; /* Restores padding smoothly */
+    }
+
+    .nav-links li {
+        width: 100%;
+        text-align: center;
+    }
+
+    .navigation-menu a {
+        display: block;
+        padding: 15px 20px;
+        border-radius: 0;
+        width: 100%;
+    }
+
+    /* Transforms the hamburger lines into an 'X' icon when active */
+    .menu-toggle.open .bar:nth-child(1) {
+        transform: translateY(9px) rotate(45deg);
+    }
+    .menu-toggle.open .bar:nth-child(2) {
+        opacity: 0;
+    }
+    .menu-toggle.open .bar:nth-child(3) {
+        transform: translateY(-9px) rotate(-45deg);
+    }
+}
+
