@@ -1,2 +1,3 @@
-# sjwa_website
-San Jose Woodworkers Association website
+# SJWA website
+
+This is the website for the San Jose Woodworkers Association.
