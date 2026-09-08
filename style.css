@@ -109,6 +109,24 @@ body {
     transition: padding 0.5s ease;
 }
 
+/* ==========================================================================
+   Navigation Branding Layout with Icon Link
+   ========================================================================== */
+.nav-brand-container {
+    display: flex;
+    align-items: center; /* Centers the graphic and text perfectly on a vertical line */
+    gap: 10px;          /* Small uniform breathing room between the icon and text */
+    text-decoration: none; /* Prevents text from trying to underline because it's a link */
+}
+
+/* Small Brand Graphic Parameters */
+.nav-brand-icon {
+    width: auto;
+    height: 24px;       /* Sets a clean, compact height that matches the font text perfectly */
+    display: block;
+    object-fit: contain;
+}
+
 .nav-brand-text {
     color: #ffffff;
     font-weight: 700;
@@ -193,7 +211,7 @@ body {
    5. Main Content Area Configuration
    ========================================================================== */
 .content-area {
-    max-width: 600px;
+    max-width: 700px;
     margin: 40px auto;
     padding: 0 20px;
     min-height: 60vh; /* Pushes footer down on short pages */
@@ -210,6 +228,18 @@ body {
 }
 
 /* ==========================================================================
+   Unordered Lists Custom Indentation
+   ========================================================================== */
+.content-area ul {
+    padding-left: 35px;   /* Pushes the bullets cleanly to the right of the paragraph edge */
+}
+
+.content-area li {
+    margin-bottom: 6px;    /* Adds a comfortable tiny gap between individual list items */
+    font-size: 0.95rem;    /* Keeps list text clean and proportional */
+}
+
+/* ==========================================================================
    Headings Fine-Tuning
    ========================================================================== */
 .content-area h1, 
@@ -217,24 +247,26 @@ body {
 .content-area h3 {
     color: #1a1a1a;
     font-weight: 700;
+    font-family: Georgia, 'Times New Roman', Times, serif;
     margin-bottom: 1rem; /* Space between the heading and the paragraph below it */
     line-height: 1.3;
+    text-align: center;
 }
 
 /* Reduced headliner size */
 .content-area h1 {
-    font-size: 1.4rem; /* Clean, compact main title size */
+    font-size: 1.6rem; /* Clean, compact main title size */
 }
 
 /* Reduced sub-section headings */
 .content-area h2 {
-    font-size: 1.25rem;
+    font-size: 1.5rem;
     margin-top: 1.3rem; /* Breathing room above a new section title */
 }
 
 /* Reduced small subsection titles */
 .content-area h3 {
-    font-size: 1.1rem;
+    font-size: 1.3rem;
     margin-top: 1rem;
 }
 
@@ -370,6 +402,359 @@ body {
     }
     .menu-toggle.open .bar:nth-child(3) {
         transform: translateY(-9px) rotate(-45deg);
+    }
+}
+
+/* ==========================================================================
+   9. Two-Column Split Layout (Map & Text)
+   ========================================================================== */
+.split-columns {
+    display: flex;
+    flex-direction: column; /* Stacks column boxes vertically on phones by default */
+    gap: 30px; /* Comfortable spacing gutter between columns */
+    margin-top: 40px; /* Pushes the split layout down from upper paragraphs */
+}
+
+.column {
+    flex: 1; /* Assigns equal 50/50 sizing space allocations to both sides */
+}
+
+/* Map Framing Sizing Parameters */
+.map-frame {
+    width: 100%;
+    height: 250px; /* Fixed height for the map canvas box */
+    border: 1px solid #dddddd;
+    border-radius: 6px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
+}
+
+/* Fix text spacing constraints inside the side panel box */
+.right-text h3 {
+    margin-top: 0; /* Keeps headline flush with top of map container */
+}
+
+.right-text p {
+    margin-bottom: 12px; /* Margins for sidebar text paragraphs */
+    font-size: 0.9rem; /* Sleek, slightly compact reading scale */
+}
+
+/* Media Query: Side-By-Side display rule for Tablet/Desktop */
+@media (min-width: 580px) {
+    .split-columns {
+        flex-direction: row; /* Activates side-by-side columns */
+        align-items: flex-start;
+    }
+}
+
+/* ==========================================================================
+   11. Smart Automated Image Gallery Grid (Multi-Row Support)
+   ========================================================================== */
+.gallery-grid-container {
+    display: grid;
+    /* Default: 1 column on small phones */
+    grid-template-columns: repeat(1, 1fr); 
+    gap: 20px; /* Uniform horizontal and vertical spacing gaps between cards */
+    margin-top: 30px;
+    width: 100%;
+}
+
+.gallery-card {
+    background-color: #ffffff;
+    border: 1px solid #e2e2e2;
+    border-radius: 6px;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03);
+    display: flex;
+    flex-direction: column;
+}
+
+/* Image Cropping Sizing Filters */
+.gallery-image-wrapper {
+    width: 100%;
+    aspect-ratio: 4 / 3; /* Keeps the card image areas uniform in size */
+    overflow: hidden;
+    background-color: #f0f0f0; /* Light grey backdrop to fill any empty space around thin images */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.gallery-img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    display: block;
+    transition: transform 0.3s ease;
+}
+
+.gallery-card:hover .gallery-img {
+    transform: scale(1.04);
+}
+
+/* Card Text Spacing Config */
+.gallery-content {
+    padding: 14px;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+}
+
+.gallery-content h3 {
+    font-size: 1rem !important;
+    text-align: left !important;
+    margin-top: 0 !important;
+    margin-bottom: 6px !important;
+}
+
+.gallery-content p {
+    font-size: 0.82rem !important; /* Slightly tighter font size to stay readable inside grid squares */
+    line-height: 1.4 !important;
+    margin-bottom: 0 !important;
+}
+
+/* --- Responsive Layout Switches --- */
+
+/* Tablet Mode: Split cleanly into 2 columns */
+@media (min-width: 400px) and (max-width: 599px) {
+    .gallery-grid-container {
+        grid-template-columns: repeat(2, 1fr); 
+    }
+}
+
+/* Desktop Mode: Automatically locks into a perfect 3-column multi-row grid layout */
+@media (min-width: 600px) {
+    .gallery-grid-container {
+        grid-template-columns: repeat(3, 1fr); 
+    }
+}
+/* ==========================================================================
+   12. Lightbox Pop-Up Modal Styling
+   ========================================================================== */
+.lightbox-overlay {
+    display: none; /* Hidden by default */
+    position: fixed;
+    z-index: 2000; /* Sits completely on top of everything, including fixed nav bars */
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.9); /* Dark translucent background */
+    backdrop-filter: blur(8px); /* Modern frosted blur effect over background text */
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+/* The Pop-Up Image Configuration */
+.lightbox-content-img {
+    max-width: 90%;
+    max-height: 80%;
+    object-fit: contain; /* Ensures the complete picture scales cleanly without cropping */
+    border-radius: 4px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    transform: scale(0.95);
+    transition: transform 0.3s ease;
+}
+
+/* Animate the image popping open */
+.lightbox-overlay.active .lightbox-content-img {
+    transform: scale(1);
+}
+
+/* Close Button (X) */
+.lightbox-close-btn {
+    position: absolute;
+    top: 20px;
+    right: 35px;
+    color: #ffffff;
+    font-size: 40px;
+    font-weight: 300;
+    cursor: pointer;
+    transition: color 0.2s ease;
+    user-select: none;
+}
+
+.lightbox-close-btn:hover {
+    color: #007bff; /* Turns blue on hover */
+}
+
+/* Caption Text Box underneath image */
+#lightbox-caption {
+    margin-top: 15px;
+    color: #cccccc;
+    font-size: 0.9rem;
+    text-align: center;
+    max-width: 80%;
+}
+
+/* ==========================================================================
+   14. Secure CSV Responsive Table Layout
+   ========================================================================== */
+.table-responsive-wrapper {
+    display: none; /* Kept hidden initially */
+    margin-top: 25px;
+    width: 160%;
+    max-width: 90vw; /* Keeps it safe on smaller laptops so it doesn't clip the screen */
+    margin-left: 50%; /* Shifts the box center margin index line */
+    transform: translateX(-50%); /* Pulls the container perfectly back to center symmetry */
+    overflow-x: auto; /* Adds smooth horizontal swipe bars on small screens */
+    border: 1px solid #e2e2e2;
+    border-radius: 6px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.03);
+    background-color: #ffffff;
+}
+
+/* Base Data Table Configuration */
+.vault-data-table {
+    width: 100%;
+    border-collapse: collapse; /* Merges borders into clean tight single lines */
+    text-align: left;
+    font-size: 0.85rem;
+}
+
+/* Header Column Cells */
+.vault-data-table th {
+    background-color: #1a1a1a;
+    color: #ffffff;
+    font-weight: 600;
+    padding: 12px 14px;
+    /* Indicates the column headers are interactive buttons */
+    cursor: pointer; 
+    user-select: none;
+    transition: background-color 0.2s ease;
+}
+
+/* Tints the header slightly lighter when hovered */
+.vault-data-table th:hover {
+    background-color: #333333;
+}
+
+/* Standard Internal Body Grid Cells */
+.vault-data-table td {
+    padding: 10px 14px;
+    border-bottom: 1px solid #eeeeee;
+    color: #444444;
+    white-space: nowrap; /* Keeps specific table data lines unified across headers */
+}
+
+/* Zebra Striping: Tint alternate rows slightly grey for effortless scanning */
+.vault-data-table tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+/* Hover highlights to track row eyes focus */
+.vault-data-table tr:hover {
+    background-color: #f1f5f9;
+}
+
+/* Smartphone Adaptive Spacing Reset */
+@media (max-width: 768px) {
+    .table-responsive-wrapper {
+        width: 100%; /* Resets safely back to regular width constraints on phones */
+        max-width: 100%;
+        transform: none;
+        margin-left: 0;
+    }
+}
+
+/* ==========================================================================
+   15. Data Export Action Controls
+   ========================================================================== */
+.table-actions-container {
+    /* Uses the exact same width system as the table */
+    width: 160%; 
+    max-width: 90vw; 
+    margin: 25px auto 10px auto;
+    display: flex;
+    justify-content: flex-end; /* Pushes the buttons flush against the right edge */
+    gap: 10px;
+
+    /* Perfect center alignment balancing math */
+    margin-left: 50%;
+    transform: translateX(-50%);
+}
+
+.action-btn {
+    padding: 6px 14px;
+    font-size: 0.8rem;
+    font-weight: 500;
+    cursor: pointer;
+    background-color: transparent; /* Removes heavy block colors */
+    border-radius: 4px;
+    transition: all 0.2s ease;
+    user-select: none;
+}
+
+.action-btn:active {
+    transform: scale(0.98);
+}
+
+.csv-btn {
+    border: 1px solid #d1d5db; /* Light grey border border line */
+    color: #4b5563; /* Subtle dark grey text color */
+}
+
+.csv-btn:hover {
+    background-color: #f3f4f6; /* Very faint grey tint on hover */
+    color: #1f2937;
+    border-color: #9ca3af;
+}
+
+.pdf-btn {
+    border: 1px solid #d1d5db;
+    color: #4b5563;
+}
+
+.pdf-btn:hover {
+    background-color: #f3f4f6;
+    color: #1f2937;
+    border-color: #9ca3af;
+}
+
+/* Smartphone Adaptive Spacing Reset */
+@media (max-width: 768px) {
+    .table-actions-container {
+        width: 100%; /* Resets safely back to regular constraints on mobile screens */
+        max-width: 100%;
+        transform: none;
+        margin-left: 0;
+        justify-content: center; /* Centers buttons inside standard portrait columns */
+    }
+}
+
+/* ==========================================================================
+   16. Unlocked Vault Success Message Layout
+   ========================================================================== */
+.vault-success-message {
+    width: 100%;
+    max-width: 90vw;
+    margin: 30px auto 0 auto;
+
+    /* Perfect center balancing math */
+    margin-left: 50%;
+    transform: translateX(-50%);
+
+    background-color: #f8fafc; /* Faint slate grey cushion background tone */
+    border: 1px solid #e2e8f0;
+    border-left: 4px solid #1a1a1a; /* Clean thick black anchor accent bar */
+    padding: 16px 20px;
+    border-radius: 6px;
+}
+
+.vault-success-message p {
+    font-size: 0.85rem !important;
+    line-height: 1.45 !important;
+    color: #475569;
+    margin-bottom: 0 !important; /* Removes padding gaps at text container bases */
+}
+
+/* Smartphone Adaptive Spacing Reset */
+@media (max-width: 768px) {
+    .vault-success-message {
+        width: 100%;
+        max-width: 100%;
+        transform: none;
+        margin-left: 0;
     }
 }
 

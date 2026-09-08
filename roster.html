@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SJWA - Page Title</title>
+    <link rel="stylesheet" href="style.css" />
+    <link rel="icon" type="image/svg+xml" href="images/favicon.svg" />
+
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.7.0/papaparse.min.js"
+      defer
+    ></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.2.0/crypto-js.min.js"
+      defer
+    ></script>
+  </head>
+  <body>
+    <header class="site-header" id="main-header"></header>
+
+    <main class="content-area">
+      <h1>Roster</h1>
+
+      <!-- Passcode Submission Interface -->
+      <div class="password-gate-container" id="csv-gate-box">
+        <p>Enter the password to view the member roster.</p>
+        <form class="password-gate-form" id="csv-decrypt-form">
+          <div class="form-group">
+            <label for="csv-passcode">Password:</label>
+            <input
+              type="password"
+              id="csv-passcode"
+              placeholder="••••••••"
+              required
+            />
+          </div>
+          <br />
+          <button type="submit" class="submit-btn">View roster</button>
+        </form>
+      </div>
+      <div
+        class="vault-success-message"
+        id="vault-success-text"
+        style="display: none"
+      >
+        <p>
+          Below is the individual contact information for each member of the
+          club. To email the whole membership, send an email to the group
+          address:
+          <a href="mailto:sjwa@googlegroups.com">sjwa@googlegroups.com</a>
+        </p>
+      </div>
+      <!-- Container for Action Buttons (Hidden by default, reveals on decryption) -->
+      <div
+        class="table-actions-container"
+        id="vault-action-controls"
+        style="display: none"
+      >
+        <button id="export-csv-btn" class="action-btn csv-btn">
+          📥 Download as CSV
+        </button>
+        <button id="export-pdf-btn" class="action-btn pdf-btn">
+          📄 Save as PDF
+        </button>
+      </div>
+      <div class="table-responsive-wrapper" id="decrypted-table-section"></div>
+    </main>
+
+    <footer class="site-footer" id="main-footer"></footer>
+    <script src="script.js"></script>
+  </body>
+</html>
