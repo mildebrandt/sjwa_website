@@ -57,12 +57,21 @@
         id="vault-action-controls"
         style="display: none"
       >
-        <button id="export-csv-btn" class="action-btn csv-btn">
-          📥 Download as CSV
-        </button>
-        <button id="export-pdf-btn" class="action-btn pdf-btn">
-          📄 Save as PDF
-        </button>
+        <div class="table-search-box">
+          <input
+            type="text"
+            id="table-search-input"
+            placeholder="🔍 Search records live..."
+          />
+        </div>
+        <div class="table-download-buttons">
+          <button id="export-csv-btn" class="action-btn csv-btn">
+            📥 Download as CSV
+          </button>
+          <button id="export-pdf-btn" class="action-btn pdf-btn">
+            📄 Save as PDF
+          </button>
+        </div>
       </div>
       <div class="table-responsive-wrapper" id="decrypted-table-section"></div>
     </main>

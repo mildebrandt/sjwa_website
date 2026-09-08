@@ -672,12 +672,39 @@ body {
     max-width: 90vw; 
     margin: 25px auto 10px auto;
     display: flex;
-    justify-content: flex-end; /* Pushes the buttons flush against the right edge */
+    justify-content: space-between; /* Pushes the buttons flush against the right edge */
     gap: 10px;
 
     /* Perfect center alignment balancing math */
     margin-left: 50%;
     transform: translateX(-50%);
+}
+
+.table-search-box {
+    flex-grow: 1;
+    max-width: 300px; /* Limits search bar width on large displays */
+}
+
+#table-search-input {
+    width: 100%;
+    padding: 6px 12px;
+    font-size: 0.8rem;
+    border: 1px solid #d1d5db;
+    border-radius: 4px;
+    background-color: #ffffff;
+    color: #333333;
+    outline: none;
+    transition: all 0.2s ease;
+}
+
+#table-search-input:focus {
+    border-color: #007bff;
+    box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.1);
+}
+
+.table-download-buttons {
+    display: flex;
+    gap: 10px;
 }
 
 .action-btn {
@@ -724,7 +751,14 @@ body {
         max-width: 100%;
         transform: none;
         margin-left: 0;
-        justify-content: center; /* Centers buttons inside standard portrait columns */
+        flex-direction: column;
+        align-items: stretch;
+    }
+    .table-search-box {
+        max-width: 100%;
+    }
+    .table-download-buttons {
+        justify-content: center;
     }
 }
 

@@ -239,6 +239,7 @@ document.addEventListener('DOMContentLoaded', () => {
                             if (csvError) csvError.style.display = 'none';
                             // Initialize the data exporter hooks right away
                             initializeExportEngine(parsedData);
+                            initializeSearchEngine();
                         }
                     } else {
                         throw new Error("Invalid cryptographic passcode match.");
@@ -387,5 +388,45 @@ document.addEventListener('DOMContentLoaded', () => {
                 printWindow.close();
             }, 250);
         };
+    }
+    // --- 11. Live Table Text Filter Search Engine ---
+    function initializeSearchEngine() {
+        const searchInput = document.getElementById('table-search-input');
+
+        if (!searchInput) return;
+
+        // Wipe any left-over input text if the page re-renders layouts
+        searchInput.value = '';
+
+        searchInput.addEventListener('input', () => {
+            const filterValue = searchInput.value.toLowerCase();
+            const table = document.getElementById('interactive-data-table');
+
+            if (!table) return;
+
+            const rows = table.getElementsByTagName('tbody')[0].rows;
+
+            // Loop through all data rows in the table body rows list
+            for (let i = 0; i < rows.length; i++) {
+                const row = rows[i];
+                let matchFound = false;
+
+                // Check cells inside the active row to see if text characters string matches
+                for (let j = 0; j < row.cells.length; j++) {
+                    const cellText = row.cells[j].textContent.toLowerCase();
+                    if (cellText.indexOf(filterValue) > -1) {
+                        matchFound = true;
+                        break; // Stop scanning additional cells in this row if a match pops up
+                    }
+                }
+
+                // Smoothly toggle the row display off or on based on search matrix matches
+                if (matchFound) {
+                    row.style.display = "";
+                } else {
+                    row.style.display = "none"; /* Hides the row completely from layout trees view */
+                }
+            }
+        });
     }
 });
