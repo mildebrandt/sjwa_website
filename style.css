@@ -276,17 +276,23 @@ body {
    ========================================================================== */
 .site-footer {
     text-align: center;
-    padding: 30px 20px;
     background-color: #1a1a1a;
     color: #aeaeae;
-    margin-top: 60px;
-    font-size: 0.9rem;
+    padding: 12px 20px; /* Reduced vertical padding significantly for a shorter bar */
+    margin-top: 40px;   /* Pushes footer away from text layout blocks */
+    font-size: 0.8rem;  /* Slightly tighter font size for a minimalist look */
     border-top: 1px solid #2a2a2a;
+    width: 100%;
 }
 
 .footer-container {
     max-width: 1200px;
     margin: 0 auto;
+    display: flex;
+    flex-direction: column; /* Stacked vertically by default on small mobile screens */
+    justify-content: space-between;
+    align-items: center;
+    gap: 8px; /* Tighter padding gaps for mobile stacking layout shapes */
 }
 
 /* ==========================================================================
